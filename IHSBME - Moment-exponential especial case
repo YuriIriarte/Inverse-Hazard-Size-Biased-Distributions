@@ -1,0 +1,14 @@
+# --------------------------------
+# Probability density function ---
+# --------------------------------
+
+dIHSBME <- function(x,a,b){
+  r = (1+x/b)*exp(-x/b)
+  m = b^a*gamma(a+2)
+    a*x^{a-1}*r/m
+}
+
+# ------------------------
+# Reliability function ---
+# ------------------------
+
