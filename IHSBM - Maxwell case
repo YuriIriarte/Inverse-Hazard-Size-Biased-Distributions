@@ -1,0 +1,48 @@
+library(VGAM) # For the computation of the Maxwell distribution
+
+# --------------------------------
+# Probability density function ---
+# --------------------------------
+
+dIHSM <- function(x,a,b){
+  s = pmaxwell(x,b,lower.tail=FALSE)
+  m = 2^{a/2+1}/sqrt(pi)*b^{-a/2}*gamma((a+3)/2)
+    a*x^{a-1}*s/m
+}
+
+# ------------------------
+# Reliability function ---
+# ------------------------
+
+mFun <- function(x,a,b){ # Function m_alpha
+  n = length(x)
+  f = rep(0,n)
+  for (i in 1:n){
+    f[i] = integrate(function(t,a,b){t^{a-1}*pmaxwell(t,b,lower.tail=FALSE)},
+             lower=x[i],upper=Inf,a=a,b=b)$value
+  }
+  return(f)
+}
+
+rIHSM <- function(x,a,b){ # RF
+  c = 2^{a/2+1}/sqrt(pi)*b^{-a/2}*gamma((a+3)/2)
+    a*mFun(x,a,b)/c
+}
+
+# ------------------------
+# Hazard rate function ---
+# ------------------------
+
+hIHSM <- function(x,a,b){
+  d = dIHSM(x,a,b)
+  r = rIHSM(x,a,b)
+    d/r
+}
+
+# ------------------------------------
+# Cumulative distribution function ---
+# ------------------------------------
+
+pIHSM <- function(x,a,b){
+  1-rIHSM(x,a,b)
+}
