@@ -1,4 +1,5 @@
-library(VGAM) # For the computation of the Maxwell distribution
+
+library(VGAM) # For the computation of the baseline Maxwell distribution
 
 # --------------------------------
 # Probability density function ---
