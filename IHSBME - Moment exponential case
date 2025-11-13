@@ -12,3 +12,32 @@ dIHSBME <- function(x,a,b){
 # Reliability function ---
 # ------------------------
 
+mFun2 <- function(x,a,b){
+  r1 = pgamma(x/b, a, 1, lower.tail = FALSE)
+  r2 = pgamma(x/b, a+1, 1, lower.tail = FALSE)
+    b^a*gamma(a)*(r1+a*r2)
+}
+
+rIHSBME <- function(x,a,b){
+  c = b^a*gamma(a+2)
+    a*mFun2(x,a,b)/c
+}
+
+# ------------------------
+# Hazard rate function ---
+# ------------------------
+
+hIHSBME <- function(x,a,b){
+  d = dIHSBME(x,a,b)
+  r = rIHSBME(x,a,b)
+    d/r
+}
+
+# ------------------------------------
+# Cumulative distribution function ---
+# ------------------------------------
+
+pIHSBME <- function(x,a,b){
+  1-rIHSBME(x,a,b)
+}
+
