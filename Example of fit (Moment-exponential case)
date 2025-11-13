@@ -1,3 +1,5 @@
+# It is required to compile the script "IHSBME – Moment-exponential case" in advance
+
 library(goftest) # For the computation of goodness-of-fit tests
 
 # ---------------------
