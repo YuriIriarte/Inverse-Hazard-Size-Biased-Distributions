@@ -1,0 +1,42 @@
+
+library(goftest) # For the computation of goodness-of-fit tests
+
+# ---------------------
+# log-verosimilitud ---
+# ---------------------
+
+loglikIHSBM <- function(p,x){
+  -sum(log(dIHSBM(x,p[1],p[2])))
+}
+
+# -------
+# Fit ---
+# -------
+
+x <- c(0.13, 0.62, 0.75, 0.87, 1.56, 2.28, 3.15, 3.25, 3.55, 4.49, 4.50, 4.61, 4.79, 7.17, 7.31, 7.43, 7.84, 8.49, 8.94, 9.40,
+9.61, 9.84, 10.58, 11.18, 11.84, 13.28, 14.47, 14.79, 15.54, 16.90, 17.25, 17.37, 18.69, 18.78, 19.88, 20.06, 20.10, 20.95, 21.72, 23.87)
+
+fit <- optim(par=c(1,0.01),fn=loglikIHSBM,method=c("BFGS"),hessian=TRUE,x=x)
+fit$par # 1.015407394 0.008743639
+fit$value # 129.5219
+fit$converge # 0
+sqrt(diag(solve(fit$hessian))) # 0.185664860 0.002187444
+
+AIC <- -2*(-129.5219)+2*2
+AIC# 263.0438
+
+BIC <- 2*log(40)-2*(-129.5219)
+BIC# 266.4216
+
+hist(x,freq=F,nclass=6)
+a <- 1.015407394 
+b <- 0.008743639
+curve(dIHSBM(x,a,b),add=TRUE,lty=2)
+
+# -------------------
+# goodness-of-fit ---
+# -------------------
+
+ad.test(x, "pIHSBM", a=1.015407394, b=0.008743639) # An = 0.4655, p-value = 0.7812
+cvm.test(x, "pIHSBM", a=1.015407394, b=0.008743639) # omega2 = 0.066868, p-value = 0.7737
+
