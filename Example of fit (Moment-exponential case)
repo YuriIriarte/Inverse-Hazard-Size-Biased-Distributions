@@ -39,5 +39,6 @@ curve(dIHSBME(x,a,b),add=TRUE,lty=2)
 # -------------------
 
 ad.test(x, "pIHSBME", a=1.186263, b=6.011671) # An = 0.71614, p-value = 0.5445
+
 cvm.test(x, "pIHSBME", a=1.186263, b=6.011671) # omega2 = 0.10814, p-value = 0.5485
 
