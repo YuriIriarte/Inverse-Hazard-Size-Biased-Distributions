@@ -5,7 +5,7 @@ library(VGAM) # For the computation of the baseline Maxwell distribution
 # Probability density function ---
 # --------------------------------
 
-dIHSM <- function(x,a,b){
+dIHSBM <- function(x,a,b){
   r = pmaxwell(x,b,lower.tail=FALSE)
   m = 2^{a/2+1}/sqrt(pi)*b^{-a/2}*gamma((a+3)/2)
     a*x^{a-1}*r/m
@@ -25,7 +25,7 @@ mFun <- function(x,a,b){ # Function m_alpha
   return(f)
 }
 
-rIHSM <- function(x,a,b){ # RF
+rIHSBM <- function(x,a,b){ # RF
   c = 2^{a/2+1}/sqrt(pi)*b^{-a/2}*gamma((a+3)/2)
     a*mFun(x,a,b)/c
 }
@@ -34,9 +34,9 @@ rIHSM <- function(x,a,b){ # RF
 # Hazard rate function ---
 # ------------------------
 
-hIHSM <- function(x,a,b){
-  d = dIHSM(x,a,b)
-  r = rIHSM(x,a,b)
+hIHSBM <- function(x,a,b){
+  d = dIHSBM(x,a,b)
+  r = rIHSBM(x,a,b)
     d/r
 }
 
@@ -44,6 +44,6 @@ hIHSM <- function(x,a,b){
 # Cumulative distribution function ---
 # ------------------------------------
 
-pIHSM <- function(x,a,b){
-  1-rIHSM(x,a,b)
+pIHSBM <- function(x,a,b){
+  1-rIHSBM(x,a,b)
 }
