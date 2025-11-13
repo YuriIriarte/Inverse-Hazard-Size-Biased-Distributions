@@ -6,9 +6,9 @@ library(VGAM) # For the computation of the baseline Maxwell distribution
 # --------------------------------
 
 dIHSM <- function(x,a,b){
-  s = pmaxwell(x,b,lower.tail=FALSE)
+  r = pmaxwell(x,b,lower.tail=FALSE)
   m = 2^{a/2+1}/sqrt(pi)*b^{-a/2}*gamma((a+3)/2)
-    a*x^{a-1}*s/m
+    a*x^{a-1}*r/m
 }
 
 # ------------------------
