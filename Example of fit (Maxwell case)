@@ -1,3 +1,4 @@
+# It is required to compile the script "IHSBM – Maxwell case" in advance
 
 library(goftest) # For the computation of goodness-of-fit tests
 
@@ -38,5 +39,6 @@ curve(dIHSBM(x,a,b),add=TRUE,lty=2)
 # -------------------
 
 ad.test(x, "pIHSBM", a=1.015407394, b=0.008743639) # An = 0.4655, p-value = 0.7812
+
 cvm.test(x, "pIHSBM", a=1.015407394, b=0.008743639) # omega2 = 0.066868, p-value = 0.7737
 
